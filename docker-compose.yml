@@ -1,0 +1,26 @@
+version: '1'
+
+services:
+  app:
+    image: zahiriandii/webapp-moviestore
+    build:
+      context: .
+    container_name: webapp-moviestore
+    depends_on:
+      - postgresDB
+    ports:
+      - 8083:8083
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresDB:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=12345678
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  postgresDB:
+    image: postgres
+    container_name: db-postgres
+    environment:
+     - POSTGRES_USER=postgres
+     - POSTGRES_PASSWORD=12345678
+    ports:
+      - 5432:5432
